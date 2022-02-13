@@ -31,9 +31,9 @@ samples, guidance on mobile development, and a full API reference.
 
 ## How Configure?
 
-1. Download all the packages
+1. Download all the packages 
 ```bash
-flutter packages get
+flutter packages get 
 ```
 2. Activate your Simulator or plug your device
 
