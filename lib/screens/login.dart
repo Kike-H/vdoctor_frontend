@@ -90,8 +90,6 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                   ),
-
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -99,23 +97,19 @@ class LoginPage extends StatelessWidget {
                     Text(" Sign up", style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
-
                     ),)
                   ],
                 ),
-
                 Container(
                   padding: EdgeInsets.only(top: 100),
                   height: 200,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage("assets/background.png"),
+                      image: AssetImage("assets/img/login.png"),
                       fit: BoxFit.fitHeight
                     ),
-
                   ),
                 )
-
               ],
             ))
           ],
@@ -139,7 +133,6 @@ Widget inputFile({label, obscureText = false})
           fontWeight: FontWeight.w400,
           color:Colors.black87
         ),
-
       ),
       SizedBox(
         height: 5,
@@ -153,7 +146,6 @@ Widget inputFile({label, obscureText = false})
             borderSide: BorderSide(
               color: Colors.grey
             ),
-
           ),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey)

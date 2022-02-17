@@ -1,12 +1,17 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:async';
-import 'dart:convert';
+import 'package:vdoctor_frontend/modules/API/vDoctor.dart';
 
 
 class SignupPage extends StatelessWidget {
+	final input_name = InputFile(label: 'Username');
+	final input_email = InputFile(label: 'Email');
+	final input_password = InputFile(label: 'Password', obscureText: true);
+	final input_password_r = InputFile(label: 'Confirm Password', obscureText: true);
 
-	
+	VDoctorApi api = VDoctorApi();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,8 +28,6 @@ class SignupPage extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios,
             size: 20,
             color: Colors.black,),
-
-
         ),
       ),
       body: SingleChildScrollView(
@@ -48,16 +51,14 @@ class SignupPage extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 15,
                         color:Colors.grey[700]),)
-
-
                 ],
               ),
               Column(
                 children: <Widget>[
-                  inputFile(label: "Username"),
-                  inputFile(label: "Email"),
-                  inputFile(label: "Password", obscureText: true),
-                  inputFile(label: "Confirm Password ", obscureText: true),
+                  input_name,
+                  input_email,
+                  input_password,
+                  input_password_r,
                 ],
               ),
               Container(
@@ -70,35 +71,33 @@ class SignupPage extends StatelessWidget {
                       top: BorderSide(color: Colors.black),
                       left: BorderSide(color: Colors.black),
                       right: BorderSide(color: Colors.black),
-
-
-
                     )
-
                 ),
                 child: MaterialButton(
                   minWidth: double.infinity,
                   height: 60,
-                  onPressed: () {},
+                  onPressed: () async {
+										Map<String, dynamic> data = {
+											'name': input_name.getValue(), 
+											'email': input_email.getValue(), 
+											'password': input_password.getValue()
+										};
+										var response = await VDoctorApi.post("/user", data);
+										print(response);
+									},
                   color: Color(0xff0095FF),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
-
                   ),
                   child: Text(
                     "Sign up", style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 18,
                     color: Colors.white,
-
                   ),
                   ),
-
                 ),
-
-
-
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -111,59 +110,53 @@ class SignupPage extends StatelessWidget {
                   )
                 ],
               )
-
-
-
             ],
-
           ),
-
-
         ),
-
       ),
-
     );
   }
 }
 
-
-
 // we will be creating a widget for text field
-Widget inputFile({label, obscureText = false})
-{
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Text(
-        label,
-        style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
-            color:Colors.black87
-        ),
+class InputFile extends StatelessWidget {
+	 final String label;
+	 final bool obscureText;
+	 TextEditingController controller = TextEditingController();
 
-      ),
-      SizedBox(
-        height: 5,
-      ),
-      TextField(
-        obscureText: obscureText,
-        decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(vertical: 0,
-                horizontal: 10),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                  color: Colors.grey
-              ),
 
-            ),
-            border: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey)
-            )
-        ),
-      ),
-      SizedBox(height: 10,)
-    ],
-  );
+	InputFile({required this.label, this.obscureText=false, Key? key}) : super(key: key);
+
+	String getValue() {
+		return controller.text.toString();
+	}
+
+	@override
+	Widget build(BuildContext context) {
+		return Column(
+				crossAxisAlignment: CrossAxisAlignment.start,
+				children: <Widget>[
+					SizedBox(
+						height: 5,
+					),
+					TextField(
+							obscureText: this.obscureText,
+							decoration: InputDecoration(
+									labelText: this.label,
+									contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 10),
+									enabledBorder: OutlineInputBorder(
+											borderSide: BorderSide(
+													color: Colors.grey
+										),
+          				),
+									border: OutlineInputBorder(
+											borderSide: BorderSide(color: Colors.grey)
+									)
+							),
+							controller: controller,
+					),
+					SizedBox(height: 10,)
+				],
+		);
+	}
 }
