@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vdoctor_frontend/modules/API/vDoctor.dart';
+import 'package:vdoctor_frontend/screens/home_screen.dart';
 import 'package:vdoctor_frontend/widgets/InputText.dart';
 
 class SignupPage extends StatelessWidget {
@@ -87,11 +88,17 @@ class SignupPage extends StatelessWidget {
                   onPressed: () async {
                     Map<String, dynamic> data = {
                       'name': input_name.getValue(),
+                      'lastname': input_lastname.getValue(),
+                      'age': input_age.getValue(),
                       'email': input_email.getValue(),
                       'password': input_password.getValue()
                     };
-                    var response = await VDoctorApi.post("/user", data);
-                    print(response);
+                    // var response = await VDoctorApi.post("/users", data);
+                    // if (response != -1) {
+                    //   Navigator.push(
+                    //       context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                    // }
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                   },
                   color: Color(0xff0095FF),
                   elevation: 0,
