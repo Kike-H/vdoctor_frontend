@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
 import 'package:vdoctor_frontend/screens/login.dart';
@@ -52,12 +53,14 @@ class HomePage extends StatelessWidget {
                       style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(200.0, 45.0, 0.0, 0.0),
-                    child: const Text(
-                      '.',
-                      style:
-                          TextStyle(fontSize: 80, fontWeight: FontWeight.bold, color: Colors.blue),
+                  BounceInDown(
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(200.0, 45.0, 0.0, 0.0),
+                      child: const Text(
+                        '.',
+                        style: TextStyle(
+                            fontSize: 80, fontWeight: FontWeight.bold, color: Colors.blue),
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -65,11 +68,12 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              Container(
+              FadeInDown(
+                  child: Container(
                 height: MediaQuery.of(context).size.height / 3,
                 decoration: const BoxDecoration(
                     image: DecorationImage(image: AssetImage("assets/img/welcome.png"))),
-              ),
+              )),
               Column(
                 children: <Widget>[
                   // the login button
