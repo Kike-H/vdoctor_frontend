@@ -93,11 +93,11 @@ class SignupPage extends StatelessWidget {
                       'email': input_email.getValue(),
                       'password': input_password.getValue()
                     };
-                    // var response = await VDoctorApi.post("/users", data);
-                    // if (response != -1) {
-                    //   Navigator.push(
-                    //       context, MaterialPageRoute(builder: (context) => HomeScreen()));
-                    // }
+                    var response = await VDoctorApi.post("/users", data);
+                    if (response != -1) {
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                    }
                     Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                   },
                   color: Color(0xff0095FF),

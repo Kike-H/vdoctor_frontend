@@ -10,10 +10,10 @@ class VDoctorApi {
 
   static void configureDio() {
     //Base URL
-    _dio.options.baseUrl = 'http://192.168.1.69:8000/';
+    _dio.options.baseUrl = "https://vdoctor.herokuapp.com/";
     _dio.options.receiveDataWhenStatusError = true;
-    _dio.options.connectTimeout = 60 * 1000;
-    _dio.options.receiveTimeout = 60 * 1000;
+    _dio.options.connectTimeout = 60 * 3000;
+    _dio.options.receiveTimeout = 60 * 3000;
     _dio.options.contentType = Headers.formUrlEncodedContentType;
     _dio.options.headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
@@ -21,8 +21,8 @@ class VDoctorApi {
   } // Configure dio
 
   static Future post(String path, Map<String, dynamic> data) async {
-    final formData = jsonEncode(data);
     configureDio();
+    final formData = jsonEncode(data);
     try {
       final resp = await _dio.post(path, data: formData);
       return resp;
@@ -31,4 +31,9 @@ class VDoctorApi {
       throw ("An error has ocurred when try making the query post");
     }
   } // Register
+
+  static Future get(String path) async {
+    configureDio();
+    return await _dio.get(path);
+  }
 }

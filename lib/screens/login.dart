@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:vdoctor_frontend/modules/API/vDoctor.dart';
 import 'package:vdoctor_frontend/screens/home_screen.dart';
+import 'package:vdoctor_frontend/widgets/InputText.dart';
 
 class LoginPage extends StatelessWidget {
+  final input_email = InputText(label: 'Email');
+  final input_password = InputText(label: 'Email', obscureText: true);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +17,7 @@ class LoginPage extends StatelessWidget {
         brightness: Brightness.light,
         backgroundColor: Colors.white,
         leading: IconButton(
-          onPressed: () {
+          onPressed: () async {
             Navigator.pop(context);
           },
           icon: Icon(
@@ -50,10 +55,7 @@ class LoginPage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 40),
                   child: Column(
-                    children: <Widget>[
-                      inputFile(label: "Email"),
-                      inputFile(label: "Password", obscureText: true)
-                    ],
+                    children: <Widget>[input_email, input_password],
                   ),
                 ),
                 Padding(
@@ -71,7 +73,14 @@ class LoginPage extends StatelessWidget {
                     child: MaterialButton(
                       minWidth: double.infinity,
                       height: 60,
-                      onPressed: () {
+                      onPressed: () async {
+                        String email = input_email.getValue();
+                        String password = input_email.getValue();
+                        var response = await VDoctorApi.get("/users/$email/$password");
+                        if (response != -1) {
+                          Navigator.push(
+                              context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                        }
                         Navigator.push(
                             context, MaterialPageRoute(builder: (context) => HomeScreen()));
                       },

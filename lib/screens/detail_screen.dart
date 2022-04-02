@@ -7,6 +7,7 @@ import 'package:vdoctor_frontend/widgets/custom_clipper.dart';
 import 'package:vdoctor_frontend/widgets/grid_item.dart';
 import 'package:vdoctor_frontend/widgets/progress_vertical.dart';
 import 'package:vdoctor_frontend/modules/API/vDoctor.dart';
+import 'package:http/http.dart' as http;
 
 class DetailScreen extends StatelessWidget {
   final tos = CheckBox();
@@ -82,29 +83,30 @@ class DetailScreen extends StatelessWidget {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Icon(Icons.arrow_back_ios, size: 15.0, color: Colors.white),
-                            shape: CircleBorder(
+                            child:
+                                const Icon(Icons.arrow_back_ios, size: 15.0, color: Colors.white),
+                            shape: const CircleBorder(
                               side: BorderSide(
                                   color: Colors.white, width: 2, style: BorderStyle.solid),
                             ),
                           ),
                         ),
-                        SizedBox(width: 20),
+                        const SizedBox(width: 20),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Symptom",
                               style: TextStyle(
                                   fontSize: 25, fontWeight: FontWeight.w900, color: Colors.white),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.baseline,
                               mainAxisAlignment: MainAxisAlignment.start,
                               textBaseline: TextBaseline.alphabetic,
-                              children: <Widget>[
+                              children: const <Widget>[
                                 SizedBox(width: 10),
                                 Text(
                                   "Select your symptom",
@@ -239,7 +241,7 @@ class DetailScreen extends StatelessWidget {
                   minWidth: double.infinity,
                   height: 60,
                   onPressed: () async {
-                    Map<String, int> data = {
+                    Map<String, dynamic> data = {
                       "x1": tos.getValue() ? 1 : 0,
                       "x2": mucosidad.getValue() ? 1 : 0,
                       "x3": fatiga.getValue() ? 1 : 0,
@@ -251,14 +253,14 @@ class DetailScreen extends StatelessWidget {
                       "x9": nauseas.getValue() ? 1 : 0,
                       "x10": vomito.getValue() ? 1 : 0,
                       "x11": dAbdominal.getValue() ? 1 : 0,
-                      "x12": dOidos.getValue() ? 1 : 0,
+                      "x12": dOidos.getValue() ? 1 : 0
                     };
-                    var response = await VDoctorApi.post("diseases", data);
+                    var response = await VDoctorApi.post("/diseases", data);
                     showDialog(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
-                              title: const Text("Result"),
-                              content: Text("You have"),
+                              title: const Text("Pre-Diagnostico"),
+                              content: Text('$response'),
                             ));
                   },
                   color: const Color.fromARGB(255, 68, 197, 126),
