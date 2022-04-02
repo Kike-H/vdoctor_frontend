@@ -1,15 +1,19 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vdoctor_frontend/screens/load.dart';
 import 'package:vdoctor_frontend/utils/const.dart';
 import 'package:vdoctor_frontend/widgets/checkbox.dart';
 import 'package:vdoctor_frontend/widgets/custom_clipper.dart';
-import 'package:vdoctor_frontend/widgets/grid_item.dart';
-import 'package:vdoctor_frontend/widgets/progress_vertical.dart';
 import 'package:vdoctor_frontend/modules/API/vDoctor.dart';
-import 'package:http/http.dart' as http;
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
+  DetailScreen({Key? key}) : super(key: key);
+
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  bool isLoading = false;
   final tos = CheckBox();
   final mucosidad = CheckBox();
   final fatiga = CheckBox();
@@ -23,9 +27,11 @@ class DetailScreen extends StatelessWidget {
   final nauseas = CheckBox();
   final vomito = CheckBox();
   final dAbdominal = CheckBox();
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) =>
+      isLoading ? const LoadPage() : DetailScreenPersonzalize(context);
+
+  Widget DetailScreenPersonzalize(BuildContext context) {
     double statusBarHeight = MediaQuery.of(context).padding.top;
 
     // For Grid Layout
@@ -255,7 +261,9 @@ class DetailScreen extends StatelessWidget {
                       "x11": dAbdominal.getValue() ? 1 : 0,
                       "x12": dOidos.getValue() ? 1 : 0
                     };
+                    setState(() => isLoading = true);
                     var response = await VDoctorApi.post("/diseases", data);
+                    setState(() => isLoading = false);
                     showDialog(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
