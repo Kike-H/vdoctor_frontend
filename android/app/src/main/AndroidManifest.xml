@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.vdoctor_frontend">
    <application
-        android:label="vdoctor_frontend"
+        android:label="vDoctor"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
