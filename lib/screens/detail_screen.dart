@@ -269,6 +269,14 @@ class _DetailScreenState extends State<DetailScreen> {
                         builder: (BuildContext context) => AlertDialog(
                               title: const Text("Pre-Diagnostico"),
                               content: Text('$response'),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text("Exit")),
+                                TextButton(onPressed: () {}, child: const Text("Go with a doctor"))
+                              ],
                             ));
                   },
                   color: const Color.fromARGB(255, 68, 197, 126),
