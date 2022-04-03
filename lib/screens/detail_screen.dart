@@ -275,7 +275,6 @@ class _DetailScreenState extends State<DetailScreen> {
                                       Navigator.pop(context);
                                     },
                                     child: const Text("Exit")),
-                                TextButton(onPressed: () {}, child: const Text("Go with a doctor"))
                               ],
                             ));
                   },
